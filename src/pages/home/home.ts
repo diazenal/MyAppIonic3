@@ -16,16 +16,21 @@ export class HomePage {
   groups2: Array<any> = [1, 2, 5, '5'];
   groups: Array<IData> = [];
 
+  fullname = 'John';
+
   constructor(public navCtrl: NavController) {
     this.age = 20;
 
     this.groups.push({ id: 1, name: 'John Doe' });
     this.groups.push({ id: 2, name: 'Steve Job' });
-    this.groups.push({ id: 3 });
 
     let person = new Person();
     person.setFullname('aa', 'bb99090');
-    person.getFullname();
+    //person.getFullname();
+  }
+
+  showName(group: IData) {
+    console.log(group.id, group.name);
   }
 
 }

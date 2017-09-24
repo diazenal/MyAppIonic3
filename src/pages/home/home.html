@@ -7,8 +7,17 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  Hello, {{fullname}}
+
+  <ion-item>
+    <ion-label fixed>Your Name</ion-label>
+    <ion-input type="text" [(ngModel)]="fullname"></ion-input>
+  </ion-item>
+
+  <ion-list >
+    <button ion-item *ngFor="let item of groups" (click)="showName(item)">
+      {{item.id}} {{item.name}}
+    </button>
+  </ion-list>
+
 </ion-content>
