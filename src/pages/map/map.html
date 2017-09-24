@@ -7,12 +7,19 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>map</ion-title>
+    <ion-title>{{ user.name }} : {{ user.email }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <ion-list >
+    <button ion-item *ngFor="let user of users" >
+      <h2>{{user.name}}</h2>
+      <p>{{user.email}}</p>
+    </button>
+  </ion-list>
 
 </ion-content>

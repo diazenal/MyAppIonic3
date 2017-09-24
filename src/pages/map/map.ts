@@ -15,7 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MapPage {
 
+  user: Object;
+  users: Array<any>;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    this.user = this.navParams.get('user');
+    this.users = this.navParams.get('users');
+   // let user = this.navParams.get('user');
+   // this.name = user.name;
+   // this.email = user.email;
   }
 
   ionViewDidLoad() {
