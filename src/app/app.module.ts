@@ -9,12 +9,21 @@ import { HomePage } from '../pages/home/home';
 import { MainPage } from './../pages/main/main';
 import { MapPage } from './../pages/map/map';
 
+import { SetttingPage } from './../pages/settting/settting';
+import { MessagePage } from './../pages/message/message';
+import { ContactPage } from './../pages/contact/contact';
+import { TabsPage } from './../pages/tabs/tabs';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     MainPage,
-    MapPage
+    MapPage,
+    TabsPage,
+    ContactPage,
+    MessagePage,
+    SetttingPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +34,11 @@ import { MapPage } from './../pages/map/map';
     MyApp,
     HomePage,
     MainPage,
-    MapPage
+    MapPage,
+    TabsPage,
+    ContactPage,
+    MessagePage,
+    SetttingPage
   ],
   providers: [
     StatusBar,
