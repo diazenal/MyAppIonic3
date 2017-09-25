@@ -14,6 +14,8 @@ import { MessagePage } from './../pages/message/message';
 import { ContactPage } from './../pages/contact/contact';
 import { TabsPage } from './../pages/tabs/tabs';
 import { UserProvider } from '../providers/user/user';
+//เมื่อสร้าง provider ต้อง import HttpModule ด้วย
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { UserProvider } from '../providers/user/user';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule  // import ในนี้เพื่อจะใช้งาน http ได้ทั้ง app
   ],
   bootstrap: [IonicApp],
   entryComponents: [
