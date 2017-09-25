@@ -13,6 +13,7 @@ import { SetttingPage } from './../pages/settting/settting';
 import { MessagePage } from './../pages/message/message';
 import { ContactPage } from './../pages/contact/contact';
 import { TabsPage } from './../pages/tabs/tabs';
+import { UserProvider } from '../providers/user/user';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TabsPage } from './../pages/tabs/tabs';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserProvider
   ]
 })
 export class AppModule {}
