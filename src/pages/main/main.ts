@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
 
 import { MapPage } from './../map/map';
 
 import { UserProvider } from './../../providers/user/user';
+
+import { LoginPage } from './../login/login';
+
 
 @IonicPage()
 @Component({
@@ -19,7 +22,8 @@ export class MainPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public userProvider: UserProvider,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    //public events: Events
   ) {
 
     //his.users.push({ name: 'John Doe', email: 'john@gmail.com' });
@@ -47,6 +51,16 @@ export class MainPage {
         loading.dismiss();
 
       });
+  }
+
+  logout() {
+    //remove token
+    localStorage.removeItem('token');
+    //this.navCtrl.setRoot(LoginPage);
+    this.navCtrl.parent.parent.setRoot(LoginPage);
+
+    //this.events.publish('logout');
+
   }
 
 }
