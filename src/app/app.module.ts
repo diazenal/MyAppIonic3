@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MainPage } from './../pages/main/main';
 import { MapPage } from './../pages/map/map';
+import { LoginPage } from './../pages/login/login';
 
 import { SetttingPage } from './../pages/settting/settting';
 import { MessagePage } from './../pages/message/message';
@@ -27,7 +28,8 @@ import { HttpModule } from '@angular/http';
     TabsPage,
     ContactPage,
     MessagePage,
-    SetttingPage
+    SetttingPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { HttpModule } from '@angular/http';
     TabsPage,
     ContactPage,
     MessagePage,
-    SetttingPage
+    SetttingPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
