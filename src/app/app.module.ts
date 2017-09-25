@@ -14,7 +14,8 @@ import { MessagePage } from './../pages/message/message';
 import { ContactPage } from './../pages/contact/contact';
 import { TabsPage } from './../pages/tabs/tabs';
 import { UserProvider } from '../providers/user/user';
-//เมื่อสร้าง provider ต้อง import HttpModule ด้วย
+
+//เมื่อ create provider ต้อง import HttpModule ไว้ด้วย
 import { HttpModule } from '@angular/http';
 
 @NgModule({
