@@ -3,9 +3,17 @@ import { IonicPage, NavController, NavParams, LoadingController, Events } from '
 
 import { MapPage } from './../map/map';
 
-import { UserProvider } from './../../providers/user/user';
+import { CustomerProvider } from './../../providers/customer/customer';
 
 import { LoginPage } from './../login/login';
+
+interface ICustomer {
+  id: number;
+  first_name?: string;
+  last_name?: string;
+  sex?: string;
+  image?: string;
+}
 
 
 @IonicPage()
@@ -16,22 +24,25 @@ import { LoginPage } from './../login/login';
 })
 export class MainPage {
 
-  users: Array<{ name: string, email: string }> = [];
+  customers: Array<ICustomer> = [];
+  token: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public userProvider: UserProvider,
+    public customerProvider: CustomerProvider,
     public loadingCtrl: LoadingController,
     //public events: Events
   ) {
 
     //his.users.push({ name: 'John Doe', email: 'john@gmail.com' });
     //this.users.push({ name: 'Steve Job', email: 'steve@gmail.com' });
+    this.token = localStorage.getItem('token');
+
   }
 
-  goDetail(_user) {
-    this.navCtrl.push(MapPage, { user: _user, users: this.users });
+  goDetail() {
+    this.navCtrl.push(MapPage, {  });
   }
 
   ionViewWillEnter() {
@@ -42,9 +53,12 @@ export class MainPage {
     })
     loading.present();
 
-    this.userProvider.getUsers()
+    this.customers = [];//เตรียมค่าว่าง เป็นการเคลียร์ value ไปด้วย
+    this.customerProvider.getCustomers(this.token)
       .then((data: any) => {
-        this.users = data;
+        this.customers = data.rows;
+
+
 
         loading.dismiss();
       }, (error) => {
