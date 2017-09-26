@@ -19,6 +19,7 @@ import { UserProvider } from '../providers/user/user';
 //เมื่อ create provider ต้อง import HttpModule ไว้ด้วย
 import { HttpModule } from '@angular/http';
 import { LoginProvider } from '../providers/login/login';
+import { CustomerProvider } from '../providers/customer/customer';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { LoginProvider } from '../providers/login/login';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     LoginProvider,
-    { provide: 'API_URL', useValue: 'http://localhost:3000' }
+    { provide: 'API_URL', useValue: 'http://localhost:3000' },
+    CustomerProvider
   ]
 })
 export class AppModule {}
