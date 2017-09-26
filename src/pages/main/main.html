@@ -1,32 +1,36 @@
-<!--
-  Generated template for the MainPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar color="primary">
     <ion-title>Main</ion-title>
-
     <ion-buttons end>
-      <button ion-button icon-only color="royal" (click)="logout()" >
+      <button ion-button icon-only (click)="logout()">
         <ion-icon name="log-out"></ion-icon>
       </button>
     </ion-buttons>
-
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
-  <ion-list >
-    <button ion-item *ngFor="let user of users" (click)="goDetail(user)" >
-      <h2>{{user.name}}</h2>
-      <p>{{user.email}}</p>
+<ion-content>
+  <ion-fab right bottom>
+    <button ion-fab color="danger" (click)="add()">
+      <ion-icon name="person-add"></ion-icon>
     </button>
-  </ion-list>
+  </ion-fab>
+  <ion-toolbar color="primary">
+    <ion-searchbar (ionInput)="search($event)"
+    (ionClear)="getCustomers()" debounce="1000">
+    </ion-searchbar>
+  </ion-toolbar>
+  <ion-list no-lines>
+    <button ion-item (click)="showMenu(customer)"
+      *ngFor="let customer of customers">
+      <ion-thumbnail item-left>
+        <img [src]="customer.image" *ngIf="customer.image">
+      </ion-thumbnail>
+    <h1>{{ customer.first_name }} {{ customer.last_name }}</h1>
+    <p>
+      {{ customer.email }}
+    </p>
+  </button>
 
+  </ion-list>
 </ion-content>

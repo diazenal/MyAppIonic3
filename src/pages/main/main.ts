@@ -56,9 +56,20 @@ export class MainPage {
     this.customers = [];//เตรียมค่าว่าง เป็นการเคลียร์ value ไปด้วย
     this.customerProvider.getCustomers(this.token)
       .then((data: any) => {
-        this.customers = data.rows;
+        //this.customers = data.rows;
 
+        //วนลูป แบบ ES6 เพื่อแปลง value of image ให้สามารถแสดงรูปภาพได้ (ต้องเพิ่ม data:image/jpeg;base64, ด้วย)
+        data.rows.forEach(v => {
+          let obj = {
+            id: v.id,
+            first_name : v.first_name,
+            last_name : v.last_name,
+            sex : v.sex,
+            image: v.image?'data:image/jpeg;base64,' + v.image : null
+          }
 
+          this.customers.push(obj);
+        });
 
         loading.dismiss();
       }, (error) => {
