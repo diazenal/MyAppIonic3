@@ -7,11 +7,14 @@ import { CustomerProvider } from './../../providers/customer/customer';
 
 import { LoginPage } from './../login/login';
 
+import { AddCustomerPage } from './../add-customer/add-customer';
+
 interface ICustomer {
   id: number;
   first_name?: string;
   last_name?: string;
   sex?: string;
+  email?: string;
   image?: string;
 }
 
@@ -64,7 +67,8 @@ export class MainPage {
             id: v.id,
             first_name : v.first_name,
             last_name : v.last_name,
-            sex : v.sex,
+            sex: v.sex,
+            email: v.email,
             image: v.image?'data:image/jpeg;base64,' + v.image : null
           }
 
@@ -86,6 +90,10 @@ export class MainPage {
 
     //this.events.publish('logout');
 
+  }
+
+  add() {
+    this.navCtrl.push(AddCustomerPage);
   }
 
 }

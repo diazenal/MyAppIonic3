@@ -14,6 +14,8 @@ import { SetttingPage } from './../pages/settting/settting';
 import { MessagePage } from './../pages/message/message';
 import { ContactPage } from './../pages/contact/contact';
 import { TabsPage } from './../pages/tabs/tabs';
+import { AddCustomerPage } from './../pages/add-customer/add-customer';
+
 import { UserProvider } from '../providers/user/user';
 
 //เมื่อ create provider ต้อง import HttpModule ไว้ด้วย
@@ -31,7 +33,8 @@ import { CustomerProvider } from '../providers/customer/customer';
     ContactPage,
     MessagePage,
     SetttingPage,
-    LoginPage
+    LoginPage,
+    AddCustomerPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { CustomerProvider } from '../providers/customer/customer';
     ContactPage,
     MessagePage,
     SetttingPage,
-    LoginPage
+    LoginPage,
+    AddCustomerPage
   ],
   providers: [
     StatusBar,
@@ -56,7 +60,7 @@ import { CustomerProvider } from '../providers/customer/customer';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     LoginProvider,
-    { provide: 'API_URL', useValue: 'http://localhost:3000' },
+    { provide: 'API_URL', useValue: 'http://192.168.1.42:3000' },
     CustomerProvider
   ]
 })
