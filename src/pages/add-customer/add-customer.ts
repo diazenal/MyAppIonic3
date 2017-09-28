@@ -5,12 +5,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // import moment มาใช้
 import * as moment from 'moment';
 
+// import เพื่อใช้ camera
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @IonicPage()
 @Component({
   selector: 'page-add-customer',
   templateUrl: 'add-customer.html',
-  providers: []
+  providers: [Camera]
 })
 export class AddCustomerPage {
 
@@ -26,11 +28,14 @@ export class AddCustomerPage {
   lastName: string;
   customerTypeId: number;
 
+  base64Image: string;
+  imageData: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public customerProvider: CustomerProvider
+    public customerProvider: CustomerProvider,
+    public camera: Camera
   ) {
     this.sexes.push({ id: 1, name: 'ชาย' });
     this.sexes.push({ id: 2, name: 'หญิง' });
@@ -59,7 +64,7 @@ export class AddCustomerPage {
       email: this.email,
       telephone: this.telephone,
       customerTypeId: this.customerTypeId,
-      image: null
+      image: this.imageData
     };
 
     this.customerProvider.saveCustomer(this.token, customer)
@@ -68,9 +73,41 @@ export class AddCustomerPage {
           alert('success');
         }
       }, (error) => {
-
+        alert('error')
       });
 
+  }
+
+  takePicture() {
+
+    const options: CameraOptions = {
+      quality: 60,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.imageData = imageData; // เผื่อส่งไปเก็บที่ REST Server
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     // Handle error
+    });
+  }
+
+  browsePicture() {
+    const options: CameraOptions = {
+      quality: 60,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+
+      this.imageData = imageData; // เผื่อส่งไปเก็บที่ REST Server
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     // Handle error
+    });
   }
 
 }
