@@ -19,6 +19,12 @@ export class AddCustomerPage {
   birthDate: any;
   token: string;
 
+  sex: string;
+  email: string;
+  telephone: string;
+  firstName: string;
+  lastName: string;
+  customerTypeId: number;
 
 
   constructor(
@@ -42,6 +48,29 @@ export class AddCustomerPage {
       }, (error) => {
 
       });
+  }
+
+  save() {
+
+    let customer = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      sex: this.sex,
+      email: this.email,
+      telephone: this.telephone,
+      customerTypeId: this.customerTypeId,
+      image: null
+    };
+
+    this.customerProvider.saveCustomer(this.token, customer)
+      .then((data: any) => {
+        if (data.ok) {
+          alert('success');
+        }
+      }, (error) => {
+
+      });
+
   }
 
 }
