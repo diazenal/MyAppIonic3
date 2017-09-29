@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Events } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController,
+  Events,
+  ActionSheetController,
+  Platform
+
+} from 'ionic-angular';
 
 import { MapPage } from './../map/map';
 
@@ -36,6 +45,8 @@ export class MainPage {
     public customerProvider: CustomerProvider,
     public loadingCtrl: LoadingController,
     //public events: Events
+    public actionSheetCtrl: ActionSheetController,
+    public platform: Platform
   ) {
 
     //his.users.push({ name: 'John Doe', email: 'john@gmail.com' });
@@ -95,5 +106,49 @@ export class MainPage {
   add() {
     this.navCtrl.push(AddCustomerPage);
   }
+
+  showMenu(customer: any) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Action menu',
+      buttons: [
+        {
+          text: 'ลบข้อมูล',
+          role: 'destructive',//จะแสดงเป็นอักษรสีแดง สำหรับ ios
+          icon: !this.platform.is('ios') ? 'trash': null,
+          handler: () => {
+            //this.removeConfirm(customer);
+          }
+        },
+        {
+          text: 'แก้ไข',
+          icon: !this.platform.is('ios') ? 'create': null,
+          handler: () => {
+            this.navCtrl.push(AddCustomerPage, { id: customer.id });
+          }
+        },
+        {
+          text: 'ดู/กำหนด แผนที่',
+          icon: !this.platform.is('ios') ? 'map': null,
+          handler: () => {
+            this.navCtrl.push(MapPage, { customer: customer });
+          }
+        },
+        {
+          text: 'โทร',
+          icon: !this.platform.is('ios') ? 'call': null,
+          handler: () => { }
+        },
+        {
+          text: 'ยกเลิก',
+          role: 'cancel',
+          icon: !this.platform.is('ios') ? 'close': null,
+          handler: () => { }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+
 
 }
