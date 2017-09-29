@@ -6,8 +6,8 @@ import {
   LoadingController,
   Events,
   ActionSheetController,
-  Platform
-
+  Platform,
+  AlertController
 } from 'ionic-angular';
 
 import { MapPage } from './../map/map';
@@ -46,7 +46,8 @@ export class MainPage {
     public loadingCtrl: LoadingController,
     //public events: Events
     public actionSheetCtrl: ActionSheetController,
-    public platform: Platform
+    public platform: Platform,
+    public alertCtrl: AlertController
   ) {
 
     //his.users.push({ name: 'John Doe', email: 'john@gmail.com' });
@@ -116,7 +117,7 @@ export class MainPage {
           role: 'destructive',//จะแสดงเป็นอักษรสีแดง สำหรับ ios
           icon: !this.platform.is('ios') ? 'trash': null,
           handler: () => {
-            //this.removeConfirm(customer);
+            this.removeConfirm(customer);
           }
         },
         {
@@ -149,6 +150,31 @@ export class MainPage {
     actionSheet.present();
   }
 
-
+  removeConfirm(customer: any) {
+    let confirm = this.alertCtrl.create({
+      title: 'Confirmation',
+      message: 'ต้องการลบรายการนี้ ใช่หรือไม่?',
+      buttons: [
+        {
+          text: 'ยกเลิก', handler: () => { console.log('ยกเลิก')}
+        },
+        {
+          text: 'ลบข้อมูล',
+          handler: () => {
+            console.log('ลบข้อมูลได้')
+            // this.customerProvider.remove(this.token, customer.id)
+            //   .then((data: any) => {
+            //     if (data.ok) {
+            //       this.ionViewWillEnter();
+            //     }
+            //   }, (error) => {
+            //     console.log(error);
+            //   });
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
 }
