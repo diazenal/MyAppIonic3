@@ -1,11 +1,13 @@
 import { CustomerProvider } from './../../providers/customer/customer';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
+  providers:[Geolocation]
 })
 export class MapPage {
 
@@ -14,7 +16,7 @@ export class MapPage {
 
   lat: number = 51.678418;
   lng: number = 7.809007;
-  zoomLevel: number = 18;
+  zoomLevel: number = 15;
 
   customerLat: any;
   customerLng: any;
@@ -27,7 +29,9 @@ export class MapPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public customerProvider: CustomerProvider
+    public customerProvider: CustomerProvider,
+    public geolocation: Geolocation,
+    public loadingCtrl: LoadingController
   ) {
 
     this.user = this.navParams.get('user');
@@ -72,6 +76,24 @@ export class MapPage {
       }, (error) => {
 
       });
+  }
+
+  getCurrentLocation() {
+    let loader = this.loadingCtrl.create({
+      content: 'Loading...',
+      spinner: 'dots'
+    });
+    loader.present();
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      loader.dismiss();
+
+      this.lat = resp.coords.latitude;
+      this.lng = resp.coords.longitude;
+
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
   }
 
 }
