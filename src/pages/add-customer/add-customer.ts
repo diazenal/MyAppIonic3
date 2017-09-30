@@ -31,6 +31,9 @@ export class AddCustomerPage {
   base64Image: string;
   imageData: string;
 
+  // ไว้สำหรับรับ param จากการเลือก action sheet
+  customerId: number;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -44,6 +47,32 @@ export class AddCustomerPage {
 
     // ใช้ moment จัดการวันที่ format (ให้ติดตั้งด้วยคำสั่ง npm i moment --save)
     this.birthDate = moment().format('YYYY-MM-DD');
+
+    this.customerId = this.navParams.get('id');
+  }
+
+  ionViewWillEnter() {
+    // เมื่อเปิด page มาก็ไปค้นหาข้อมูล customer ได้เลย
+    if (this.customerId) {
+      this.customerProvider.detail(this.token, this.customerId)
+      .then((data: any) => {
+        if (data.ok) {
+          this.firstName = data.customer.first_name;
+          this.lastName = data.customer.last_name;
+          this.sex = data.customer.sex;
+          this.customerTypeId = data.customer.customer_type_id;
+          this.imageData = data.customer.image;
+          //ถ้ามีรูป ก็แสดงรูป แต่ถ้าไม่มีก็แสดงค่า null โดยที่หน้า html จะแสดงรูป placeholder แทนเพราะมีการ check if
+          this.base64Image = data.customer.image ?
+            'data:image/jpeg;base64,' + data.customer.image : null;
+          this.email = data.customer.email;
+          this.telephone = data.customer.telephone;
+
+        }
+      }, (error) => {
+
+      });
+    }
   }
 
   ionViewDidLoad() {

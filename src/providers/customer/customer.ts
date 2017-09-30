@@ -95,4 +95,22 @@ export class CustomerProvider {
     });
   }
 
+  detail(token: string, customerId: number) {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+        'x-access-token': token
+      });
+      let options = new RequestOptions({ headers: headers });
+
+      this.http.get(`${this.url}/customers/detail/${customerId}`, options)
+        .map(res => res.json())
+        .subscribe(data => {
+          resolve(data)
+        }, err => {
+          reject(err)
+        });
+    });
+  }
+
 }
