@@ -46,4 +46,15 @@ export class MapPage {
     this.customerLng = event.coords.lng;
   }
 
+  save() {
+    this.customerProvider.saveMap(this.token, this.customer.id, this.customerLat, this.customerLng)
+      .then((data:any) => {
+        if (data.ok) {
+          alert('success');
+        }
+      }, (error) => {
+        alert('error');
+      });
+  }
+
 }
