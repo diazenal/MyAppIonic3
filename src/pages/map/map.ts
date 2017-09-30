@@ -2,12 +2,13 @@ import { CustomerProvider } from './../../providers/customer/customer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 
 @IonicPage()
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
-  providers:[Geolocation]
+  providers:[Geolocation, LaunchNavigator]
 })
 export class MapPage {
 
@@ -16,6 +17,10 @@ export class MapPage {
 
   lat: number = 51.678418;
   lng: number = 7.809007;
+
+  currentLat: any;
+  currentLng: any;
+
   zoomLevel: number = 15;
 
   customerLat: any;
@@ -31,7 +36,8 @@ export class MapPage {
     public navParams: NavParams,
     public customerProvider: CustomerProvider,
     public geolocation: Geolocation,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private launchNavigator: LaunchNavigator
   ) {
 
     this.user = this.navParams.get('user');
@@ -63,19 +69,45 @@ export class MapPage {
 
   // เพื่อแสดง lat, lng ของ customerId ที่เลือก
   ionViewWillEnter() {
-    this.customerProvider.getMap(this.token, this.customer.id)
+
+    let loader = this.loadingCtrl.create({
+      content: 'Loading...',
+      spinner: 'dots'
+    });
+    loader.present();
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      loader.dismiss();
+
+      this.currentLat = resp.coords.latitude;
+      this.currentLng = resp.coords.longitude;
+
+      console.log(this.currentLat);
+      console.log(this.currentLng);
+      //get customer latLong from db;
+      this.customerProvider.getMap(this.token, this.customer.id)
       .then((data: any) => {
         if (data.ok) {
-          this.customerLat = data.latLng.lat;
-          this.customerLng = data.latLng.lng;
+          if (data.latLng.lat && data.latLng.lng) {
+            this.customerLat = data.latLng.lat;
+            this.customerLng = data.latLng.lng;
 
-          //กำหนดค่า lat, lng เพื่อให้ marker อยู่ตรงกลางหน้าจอ
-          this.lat = data.latLng.lat;
-          this.lng = data.latLng.lng;
+            //กำหนดค่า lat, lng เพื่อให้ marker อยู่ตรงกลางหน้าจอ
+            this.lat = data.latLng.lat;
+            this.lng = data.latLng.lng;
+          } else {
+            //this.getCurrentLocation();
+            this.lat = this.currentLat;
+            this.lng = this.currentLng;
+          }
         }
       }, (error) => {
 
       });
+
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
   }
 
   getCurrentLocation() {
@@ -90,10 +122,24 @@ export class MapPage {
 
       this.lat = resp.coords.latitude;
       this.lng = resp.coords.longitude;
-
+      console.log('current location ', this.lat, this.lng);
      }).catch((error) => {
        console.log('Error getting location', error);
      });
   }
 
+  // ต้อง run on mobile เท่านั้นจึงจะใช้งานได้
+  launchNavigatorApp() {
+
+    let options: LaunchNavigatorOptions = {
+      start: [this.currentLat, this.currentLng]
+
+    };
+
+    this.launchNavigator.navigate([this.customerLat, this.customerLng], options)
+    .then(
+      success => console.log('Launched navigator'),
+      error => console.log('Error launching navigator', error)
+    );
+  }
 }
