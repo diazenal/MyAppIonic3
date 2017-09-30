@@ -83,7 +83,7 @@ export class AddCustomerPage {
 
       });
   }
-
+  //ปรับปรุง save() ให้รองรับทั้งการเพิ่ม และแก้ไข ข้อมูล
   save() {
 
     let customer = {
@@ -93,17 +93,26 @@ export class AddCustomerPage {
       email: this.email,
       telephone: this.telephone,
       customerTypeId: this.customerTypeId,
-      image: this.imageData
+      image: this.imageData,
+      customerId: this.customerId
     };
 
-    this.customerProvider.saveCustomer(this.token, customer)
-      .then((data: any) => {
-        if (data.ok) {
-          alert('success');
-        }
-      }, (error) => {
-        alert('error')
-      });
+    let promise;
+
+    if (this.customerId) {
+      promise = this.customerProvider.updateCustomer(this.token, customer);
+    } else {
+      promise = this.customerProvider.saveCustomer(this.token, customer);
+    }
+
+    promise.then((data: any) => {
+      if (data.ok) {
+        alert('success');
+        this.navCtrl.pop();//เมื่อทำสำเร็จ ให้กลับไปหน้าก่อนหน้า ด้วยการ pop();
+      }
+    }, (error) => {
+      alert('error')
+    });
 
   }
 
