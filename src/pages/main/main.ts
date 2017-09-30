@@ -153,7 +153,7 @@ export class MainPage {
   removeConfirm(customer: any) {
     let confirm = this.alertCtrl.create({
       title: 'Confirmation',
-      message: 'ต้องการลบรายการนี้ ใช่หรือไม่?',
+      message: 'ต้องการลบรายการนี้ ใช่หรือไม่? ['+ customer.first_name +']',
       buttons: [
         {
           text: 'ยกเลิก', handler: () => { console.log('ยกเลิก')}
@@ -162,14 +162,14 @@ export class MainPage {
           text: 'ลบข้อมูล',
           handler: () => {
             console.log('ลบข้อมูลได้')
-            // this.customerProvider.remove(this.token, customer.id)
-            //   .then((data: any) => {
-            //     if (data.ok) {
-            //       this.ionViewWillEnter();
-            //     }
-            //   }, (error) => {
-            //     console.log(error);
-            //   });
+            this.customerProvider.remove(this.token, customer.id)
+              .then((data: any) => {
+                if (data.ok) {
+                  this.ionViewWillEnter();
+                }
+              }, (error) => {
+                console.log(error);
+              });
           }
         }
       ]
