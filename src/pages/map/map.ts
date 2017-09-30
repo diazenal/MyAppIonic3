@@ -1,12 +1,6 @@
+import { CustomerProvider } from './../../providers/customer/customer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the MapPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -18,17 +12,38 @@ export class MapPage {
   user: Object;
   users: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  lat: number = 51.678418;
+  lng: number = 7.809007;
+  zoomLevel: number = 18;
+
+  customerLat: any;
+  customerLng: any;
+  customerName: string;
+
+  customer: Object;
+
+  token: string;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public customerProvider: CustomerProvider
+  ) {
 
     this.user = this.navParams.get('user');
     this.users = this.navParams.get('users');
-   // let user = this.navParams.get('user');
-   // this.name = user.name;
-   // this.email = user.email;
+
+    this.customer = this.navParams.get('customer');
+    this.customerName = `${this.customer.first_name} ${this.customer.last_name} [k]`;
+
+    this.token = localStorage.getItem('token');
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MapPage');
+  mapClick(event) {
+    //console.log(event);
+    this.customerLat = event.coords.lat;
+    this.customerLng = event.coords.lng;
   }
 
 }

@@ -23,6 +23,8 @@ import { HttpModule } from '@angular/http';
 import { LoginProvider } from '../providers/login/login';
 import { CustomerProvider } from '../providers/customer/customer';
 
+import { AgmCoreModule } from '@agm/core';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -39,7 +41,10 @@ import { CustomerProvider } from '../providers/customer/customer';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule  // import ในนี้เพื่อจะใช้งาน http ได้ทั้ง app
+    HttpModule,  // import ในนี้เพื่อจะใช้งาน http ได้ทั้ง app
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCY4eMYy2frASxET_QW03T2C5oSDHTCsoI'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
