@@ -20,7 +20,7 @@ export class MapPage {
   customerLng: any;
   customerName: string;
 
-  customer: Object;
+  customer: any;
 
   token: string;
 
@@ -54,6 +54,23 @@ export class MapPage {
         }
       }, (error) => {
         alert('error');
+      });
+  }
+
+  // เพื่อแสดง lat, lng ของ customerId ที่เลือก
+  ionViewWillEnter() {
+    this.customerProvider.getMap(this.token, this.customer.id)
+      .then((data: any) => {
+        if (data.ok) {
+          this.customerLat = data.latLng.lat;
+          this.customerLng = data.latLng.lng;
+
+          //กำหนดค่า lat, lng เพื่อให้ marker อยู่ตรงกลางหน้าจอ
+          this.lat = data.latLng.lat;
+          this.lng = data.latLng.lng;
+        }
+      }, (error) => {
+
       });
   }
 
