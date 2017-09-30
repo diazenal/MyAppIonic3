@@ -60,7 +60,7 @@ export class MainPage {
     this.navCtrl.push(MapPage, {  });
   }
 
-  ionViewWillEnter() {
+  getCustomers() {
 
     let loading = this.loadingCtrl.create({
       content: 'Please wait ...',
@@ -81,8 +81,8 @@ export class MainPage {
             last_name : v.last_name,
             sex: v.sex,
             email: v.email,
-            image: v.image?'data:image/jpeg;base64,' + v.image : null
-          }
+            image: v.image? 'data:image/jpeg;base64,' + v.image : null
+          };
 
           this.customers.push(obj);
         });
@@ -92,6 +92,10 @@ export class MainPage {
         loading.dismiss();
 
       });
+  }
+
+  ionViewWillEnter() {
+    this.getCustomers();
   }
 
   logout() {
@@ -165,7 +169,7 @@ export class MainPage {
             this.customerProvider.remove(this.token, customer.id)
               .then((data: any) => {
                 if (data.ok) {
-                  this.ionViewWillEnter();
+                  this.getCustomers();
                 }
               }, (error) => {
                 console.log(error);
@@ -175,6 +179,40 @@ export class MainPage {
       ]
     });
     confirm.present();
+  }
+
+  search(event) {
+    //console.log('in search()')
+    // ดูว่า event ที่ส่งมาจาก html มีค่า property อะไรให้ใช้บ้าง
+    //console.log(event.target.value);
+    let query = event.target.value;
+    //ตรวจสอบก่อน ถ้ามี query ก็ค้นหา แต่ถ้าไม่มีเลย ก็ดึงกข้อมูลใหม่หมด
+    if (query) {
+      //console.log('in if');
+      this.customers = [];
+      this.customerProvider.search(this.token, query)
+        .then((data: any) => {
+
+          data.rows.forEach(v => {
+            let obj = {
+              id: v.id,
+              first_name : v.first_name,
+              last_name : v.last_name,
+              sex: v.sex,
+              email: v.email,
+              image: v.image?'data:image/jpeg;base64,' + v.image : null
+            }
+
+            this.customers.push(obj);
+          });
+
+        });
+
+    } else {
+      //console.log('in else');
+      this.getCustomers();
+    }
+
   }
 
 }

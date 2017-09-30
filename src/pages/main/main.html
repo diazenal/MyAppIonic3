@@ -17,7 +17,7 @@
   </ion-fab>
   <ion-toolbar color="primary">
     <ion-searchbar (ionInput)="search($event)"
-    (ionClear)="getCustomers()" debounce="1000">
+    (ionCancel)="getCustomers()" debounce="1000">
     </ion-searchbar>
   </ion-toolbar>
   <ion-list no-lines>
