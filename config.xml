@@ -90,5 +90,7 @@
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.0.5" />
     <engine name="android" spec="~6.3.0" />
-    <plugin name="phonegap-plugin-push" spec="^2.0.0" />
+    <plugin name="phonegap-plugin-push" spec="^2.0.0">
+        <variable name="SENDER_ID" value="525980791197" />
+    </plugin>
 </widget>

@@ -69,7 +69,9 @@
             "mx.ferreyra.callnumber": {},
             "cordova-plugin-geolocation": {},
             "uk.co.workingedge.phonegap.plugin.launchnavigator": {},
-            "phonegap-plugin-push": {}
+            "phonegap-plugin-push": {
+                "SENDER_ID": "525980791197"
+            }
         },
         "platforms": [
             "android"
