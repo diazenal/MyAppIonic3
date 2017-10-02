@@ -56,6 +56,7 @@ export class SetttingPage {
       pushObject.on('notification')
         .subscribe((notification: any) => {
           console.log('Received a notification', notification)
+
         });
 
       pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
