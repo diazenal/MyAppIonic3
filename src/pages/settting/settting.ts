@@ -1,3 +1,4 @@
+import { CustomerProvider } from './../../providers/customer/customer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -14,10 +15,14 @@ export class SetttingPage {
 
   accept: boolean;
 
+  token: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private push: Push) {
+    private push: Push,
+    private customerProvider: CustomerProvider) {
+    this.token = localStorage.getItem('token');
   }
 
   ionViewDidLoad() {
@@ -51,6 +56,12 @@ export class SetttingPage {
           console.log('Device registered', registration)
           let deviceToken = registration.registrationId;
 
+          this.customerProvider.registerToken(this.token, deviceToken)
+            .then((data: any) => {
+              console.log('success');
+            }, (error) => {
+              console.log(error);
+            });
         });
 
       pushObject.on('notification')

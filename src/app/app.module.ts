@@ -65,7 +65,7 @@ import { AgmCoreModule } from '@agm/core';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     LoginProvider,
-    { provide: 'API_URL', useValue: 'http://192.168.1.34:3000' },
+    { provide: 'API_URL', useValue: 'http://192.168.1.35:3000' },
     CustomerProvider
   ]
 })

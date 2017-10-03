@@ -205,4 +205,25 @@ export class CustomerProvider {
         });//subscribe() คือการสั่งให้ไปดึงข้อมูลมาแล้วค่อยเอา res ไปทำ map() json ที่คือกลับมากคือ data
     })
   }
+
+  registerToken(token: string, deviceToken: string) {
+    return new Promise((resolve, reject) => {
+
+      let header = new Headers({
+        'Content-Type': 'application/json',
+        'x-access-token': token
+      });
+      let options = new RequestOptions({ headers: header });
+
+      let body = { deviceToken: deviceToken };
+
+      this.http.post(`${this.url}/fcm/register-device`, body, options)
+        .map(res => res.json())
+        .subscribe(data => {
+          resolve(data); //ถ้า success ก็คืน data ออกไป
+        }, error => {
+          reject(error);// ถ้ามี error ก็ reject
+        });//subscribe() คือการสั่งให้ไปดึงข้อมูลมาแล้วค่อยเอา res ไปทำ map() json ที่คือกลับมากคือ data
+    })
+  }
 }
