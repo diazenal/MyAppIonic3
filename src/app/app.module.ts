@@ -18,6 +18,7 @@ import { AddCustomerPage } from './../pages/add-customer/add-customer';
 import { AddContactPage } from './../pages/add-contact/add-contact';
 
 import { UserProvider } from '../providers/user/user';
+import { ContactProvider } from '../providers/contact/contact';
 
 //เมื่อ create provider ต้อง import HttpModule ไว้ด้วย
 import { HttpModule } from '@angular/http';
@@ -69,7 +70,8 @@ import { AgmCoreModule } from '@agm/core';
     UserProvider,
     LoginProvider,
     { provide: 'API_URL', useValue: 'http://192.168.1.34:3000' },
-    CustomerProvider
+    CustomerProvider,
+    ContactProvider
   ]
 })
 export class AppModule {}
