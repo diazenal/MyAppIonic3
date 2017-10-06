@@ -15,6 +15,7 @@ import { MessagePage } from './../pages/message/message';
 import { ContactPage } from './../pages/contact/contact';
 import { TabsPage } from './../pages/tabs/tabs';
 import { AddCustomerPage } from './../pages/add-customer/add-customer';
+import { AddContactPage } from './../pages/add-contact/add-contact';
 
 import { UserProvider } from '../providers/user/user';
 
@@ -36,7 +37,8 @@ import { AgmCoreModule } from '@agm/core';
     MessagePage,
     SetttingPage,
     LoginPage,
-    AddCustomerPage
+    AddCustomerPage,
+    AddContactPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { AgmCoreModule } from '@agm/core';
     MessagePage,
     SetttingPage,
     LoginPage,
-    AddCustomerPage
+    AddCustomerPage,
+    AddContactPage
   ],
   providers: [
     StatusBar,
@@ -65,7 +68,7 @@ import { AgmCoreModule } from '@agm/core';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     LoginProvider,
-    { provide: 'API_URL', useValue: 'http://192.168.1.35:3000' },
+    { provide: 'API_URL', useValue: 'http://192.168.1.34:3000' },
     CustomerProvider
   ]
 })
