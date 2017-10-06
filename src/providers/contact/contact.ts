@@ -31,4 +31,19 @@ export class ContactProvider {
 
     });
   }
+
+  getContacts(db: SQLiteObject) {
+    return new Promise((resolve, reject) => {
+      let sql = `SELECT * FROM contact`;
+
+      db.executeSql(sql, [])
+        .then((data: any) => {
+          resolve(data.rows);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+
+    });
+  }
 }

@@ -1,3 +1,4 @@
+import { ContactPage } from './../contact/contact';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
@@ -69,6 +70,7 @@ export class AddContactPage {
     this.contactProvider.save(this.dbObj, contact)
       .then(() => {
         alert('success');
+        this.navCtrl.pop();// เพื่อให้กลับไป page ก่อนหน้า
       }, (error) => {
         console.log(error);
         alert('error');
