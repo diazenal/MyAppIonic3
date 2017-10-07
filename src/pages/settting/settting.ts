@@ -1,3 +1,4 @@
+import { LoginPage } from './../login/login';
 import { CustomerProvider } from './../../providers/customer/customer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -75,6 +76,16 @@ export class SetttingPage {
     } else {
 
     }
+  }
+
+  logout() {
+    //remove token
+    localStorage.removeItem('token');
+    //this.navCtrl.setRoot(LoginPage);
+    this.navCtrl.parent.parent.setRoot(LoginPage);
+
+    //this.events.publish('logout');
+
   }
 
 }
