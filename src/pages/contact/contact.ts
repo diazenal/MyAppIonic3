@@ -37,26 +37,26 @@ export class ContactPage {
     private alertCtrl:AlertController
   ) {
 
-    this.platform.ready()
-      .then(() => {
 
-        this.sqlite.create({
-          name: 'data.db',
-          location: 'default'
-        }).then((dbObj: SQLiteObject) => {
-
-          this.sqliteObject = dbObj;
-
-          this.getContacts();
-
-        }).catch((error) => {
-          console.log(error);
-        });
-      });
   }
 
   ionViewWillEnter() {
+    this.platform.ready()
+    .then(() => {
 
+      this.sqlite.create({
+        name: 'data.db',
+        location: 'default'
+      }).then((dbObj: SQLiteObject) => {
+
+        this.sqliteObject = dbObj;
+
+        this.getContacts();
+
+      }).catch((error) => {
+        console.log(error);
+      });
+    });
   }
 
   remove(contact: any) {
@@ -109,10 +109,9 @@ export class ContactPage {
       .then((rows: any) => {
 
         loader.dismiss();
+        this.contacts = [];
 
         if (rows.length > 0) {
-
-          this.contacts = [];
 
           for (let i = 0; i < rows.length; i++) {
 
@@ -128,6 +127,8 @@ export class ContactPage {
             this.contacts.push(contact);
           }
         }
+      }, (error) => {
+        console.log(error);
       });
   }
 }
