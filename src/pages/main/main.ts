@@ -15,6 +15,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { MapPage } from './../map/map';
 
 import { CustomerProvider } from './../../providers/customer/customer';
+import { LoginProvider } from './../../providers/login/login';
 
 import { LoginPage } from './../login/login';
 
@@ -50,7 +51,8 @@ export class MainPage {
     public actionSheetCtrl: ActionSheetController,
     public platform: Platform,
     public alertCtrl: AlertController,
-    public callNumber: CallNumber
+    public callNumber: CallNumber,
+    private loginProvider: LoginProvider
   ) {
 
     //his.users.push({ name: 'John Doe', email: 'john@gmail.com' });
@@ -75,7 +77,10 @@ export class MainPage {
     this.customerProvider.getCustomers(this.token)
       .then((data: any) => {
         //this.customers = data.rows;
-
+        let encryptedText = data.data;
+        let decryptedText = this.loginProvider.decrypt(encryptedText);
+        let _rows = JSON.parse(decryptedText);
+        data.rows = _rows;
         //วนลูป แบบ ES6 เพื่อแปลง value of image ให้สามารถแสดงรูปภาพได้ (ต้องเพิ่ม data:image/jpeg;base64, ด้วย)
         data.rows.forEach(v => {
           let obj = {
