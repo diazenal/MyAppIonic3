@@ -61,4 +61,19 @@ export class ContactProvider {
 
     });
   }
+
+  getDetail(db: SQLiteObject, contractId: number ) {
+    return new Promise((resolve, reject) => {
+      let sql = `SELECT * FROM contact WHERE id=?`;
+
+      db.executeSql(sql, [contractId])
+        .then((data: any) => {
+          resolve(data.rows);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+
+    });
+  }
 }

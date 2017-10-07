@@ -131,4 +131,8 @@ export class ContactPage {
         console.log(error);
       });
   }
+
+  edit(contact: any) {
+    this.navCtrl.push(AddContactPage, { contactId: contact.id });
+  }
 }
