@@ -71,6 +71,22 @@ export class ContactProvider {
     });
   }
 
+  search(db: SQLiteObject, query: string) {
+    let _query = `%${query}%`;
+    let sql = `SELECT * FROM contact where first_name like ? or last_name like ?`;
+
+    return new Promise((resolve, reject) => {
+      db.executeSql(sql, [_query, _query])
+        .then((data: any) => {
+          resolve(data.rows);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+
+    });
+  }
+
   remove(db: SQLiteObject, contractId: number ) {
     return new Promise((resolve, reject) => {
       let sql = `DELETE FROM contact WHERE id=?`;

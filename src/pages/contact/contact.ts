@@ -135,4 +135,38 @@ export class ContactPage {
   edit(contact: any) {
     this.navCtrl.push(AddContactPage, { contactId: contact.id });
   }
+
+  search(event) {
+    let query = event.target.value;
+
+    if (query) {
+      // search
+      this.contactProvider.search(this.sqliteObject, query)
+        .then((rows: any) => {
+
+          this.contacts = [];
+
+          if (rows.length > 0) {
+
+            for (let i = 0; i < rows.length; i++) {
+
+              let contact = {
+                id: rows.item(i).id,
+                first_name: rows.item(i).first_name,
+                last_name: rows.item(i).last_name,
+                sex: rows.item(i).sex,
+                telephone: rows.item(i).telephone,
+                email: rows.item(i).email
+              };
+
+              this.contacts.push(contact);
+            }
+          }
+        }, (error) => {
+
+        });
+    } else {
+      this.getContacts();
+    }
+  }
 }
