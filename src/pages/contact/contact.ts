@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, LoadingController, AlertController } from 'ionic-angular';
 
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
@@ -33,7 +33,8 @@ export class ContactPage {
 
     private contactProvider: ContactProvider,
     private platform: Platform,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private alertCtrl:AlertController
   ) {
 
     this.platform.ready()
@@ -56,6 +57,33 @@ export class ContactPage {
 
   ionViewWillEnter() {
 
+  }
+
+  remove(contact: any) {
+    let confirm = this.alertCtrl.create({
+      title: 'Are you sure?',
+      message: `คุณต้องการลบ [${contact.first_name} ${contact.last_name}] ใช่หรือไม่`,
+      buttons: [
+        {
+          text: 'ไม่ใช่, ยกเลิก',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'ใช่, ต้องการลบ',
+          handler: () => {
+            console.log('Agree clicked');
+            console.log(contact);
+            this.contactProvider.remove(this.sqliteObject, contact.id)
+              .then(() => {
+                this.getContacts();
+            })
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
   add() {

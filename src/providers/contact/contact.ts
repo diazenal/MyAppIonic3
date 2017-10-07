@@ -46,4 +46,19 @@ export class ContactProvider {
 
     });
   }
+
+  remove(db: SQLiteObject, contractId: number ) {
+    return new Promise((resolve, reject) => {
+      let sql = `DELETE FROM contact WHERE id=?`;
+
+      db.executeSql(sql, [contractId])
+        .then((data: any) => {
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+
+    });
+  }
 }
