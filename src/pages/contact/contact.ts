@@ -78,6 +78,14 @@ export class ContactPage {
             this.contactProvider.remove(this.sqliteObject, contact.id)
               .then(() => {
                 this.getContacts();
+              }, (error) => {
+                console.log(error);
+                let alert = this.alertCtrl.create({
+                  title: 'Error!',
+                  subTitle: 'เกิดข้อผิดพลาดในการรันคำสั่ง DELETE',
+                  buttons: ['OK']
+                });
+                alert.present();
             })
           }
         }
