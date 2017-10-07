@@ -32,6 +32,30 @@ export class ContactProvider {
     });
   }
 
+  update(db: SQLiteObject, contact: any) {
+    return new Promise((resolve, reject) => {
+      let sql = `UPDATE CONTACT
+                        SET first_name=?, last_name=?, sex=?, telephone=?, email=?
+                 WHERE id=?`;
+
+      db.executeSql(sql, [
+        contact.first_name,
+        contact.last_name,
+        contact.sex,
+        contact.telephone,
+        contact.email,
+        contact.id
+      ])
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+
+    });
+  }
+
   getContacts(db: SQLiteObject) {
     return new Promise((resolve, reject) => {
       let sql = `SELECT * FROM contact`;

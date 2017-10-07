@@ -72,10 +72,18 @@ export class AddContactPage {
       last_name: this.lastName,
       sex: this.sex,
       telephone: this.telephone,
-      email: this.email
+      email: this.email,
+      id: this.contactId
     };
 
-    this.contactProvider.save(this.dbObj, contact)
+    let promise: any;
+    if (this.contactId) {
+      promise = this.contactProvider.update(this.dbObj, contact);
+    } else {
+      promise = this.contactProvider.save(this.dbObj, contact);
+    }
+
+    promise
       .then(() => {
         alert('success');
         this.navCtrl.pop();// เพื่อให้กลับไป page ก่อนหน้า
