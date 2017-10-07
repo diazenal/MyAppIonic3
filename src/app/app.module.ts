@@ -1,3 +1,4 @@
+import { ChartPage } from './../pages/chart/chart';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -39,7 +40,8 @@ import { AgmCoreModule } from '@agm/core';
     SetttingPage,
     LoginPage,
     AddCustomerPage,
-    AddContactPage
+    AddContactPage,
+    ChartPage
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { AgmCoreModule } from '@agm/core';
     SetttingPage,
     LoginPage,
     AddCustomerPage,
-    AddContactPage
+    AddContactPage,
+    ChartPage
   ],
   providers: [
     StatusBar,
