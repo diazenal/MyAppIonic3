@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, LoadingController, AlertController } from 'ionic-angular';
 
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { CallNumber } from '@ionic-native/call-number';
 
 import { AddContactPage } from './../add-contact/add-contact';
 
@@ -11,7 +12,7 @@ import { ContactProvider } from './../../providers/contact/contact';
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html',
-  providers:[]
+  providers:[CallNumber]
 })
 export class ContactPage {
 
@@ -34,7 +35,8 @@ export class ContactPage {
     private contactProvider: ContactProvider,
     private platform: Platform,
     private loadingCtrl: LoadingController,
-    private alertCtrl:AlertController
+    private alertCtrl: AlertController,
+    private callNumber: CallNumber
   ) {
 
 
@@ -169,4 +171,12 @@ export class ContactPage {
       this.getContacts();
     }
   }
+
+  callPhone(telephone: string) {
+
+    this.callNumber.callNumber(telephone, true)
+      .then(() => console.log('Launched dialer!'))
+      .catch(() => console.log('Error launching dialer'));
+  }
+
 }
