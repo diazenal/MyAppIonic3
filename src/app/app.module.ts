@@ -25,8 +25,12 @@ import { ContactProvider } from '../providers/contact/contact';
 import { HttpModule } from '@angular/http';
 import { LoginProvider } from '../providers/login/login';
 import { CustomerProvider } from '../providers/customer/customer';
-
+// for Google map
 import { AgmCoreModule } from '@agm/core';
+// for chart
+import { ChartModule } from 'angular2-highcharts';
+//import * as highcharts from 'highcharts';
+declare var require: any;
 
 @NgModule({
   declarations: [
@@ -46,6 +50,11 @@ import { AgmCoreModule } from '@agm/core';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    //ChartModule.forRoot(highcharts),
+    ChartModule.forRoot(
+      require('highcharts'),
+      require('highcharts/modules/exporting'),
+      require('highcharts/highcharts-3d')),
     HttpModule,  // import ในนี้เพื่อจะใช้งาน http ได้ทั้ง app
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCY4eMYy2frASxET_QW03T2C5oSDHTCsoI'
